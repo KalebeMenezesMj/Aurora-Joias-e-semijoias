@@ -1,0 +1,27 @@
+{% extends "template.html" %}
+{% load static %}
+
+{% block title %}Comprar - {{ produto.nome }}{% endblock %}
+
+{% block content %}
+
+<section class="compra-card">
+    <h2>{{ produto.nome }}</h2>
+
+    <img src="{{ produto.foto.url }}" class="produto-img">
+
+    <p><strong>Preço:</strong> R$ {{ produto.preco }}</p>
+    <p><strong>Disponível:</strong> {{ produto.estoque }} unidades</p>
+
+    <form method="POST" action="{% url 'finalizarCompra' produto.id %}">
+        {% csrf_token %}
+
+        <label>Quantidade:</label>
+        <input type="number" name="quantidade" min="1" max="{{ produto.estoque }}" required>
+
+        <button type="submit" class="btn-primary">Finalizar Pedido</button>
+    </form>
+
+</section>
+
+{% endblock %}

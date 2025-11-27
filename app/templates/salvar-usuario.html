@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+{% load static %}
+
+{% block content %}
+<section class="auth-page">
+    <div class="auth-card">
+        <h2>Crie sua conta</h2>
+
+        <form method="POST" class="form-card">
+            {% csrf_token %}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+
+            {{ form.email.label_tag }}
+            {{ form.email }}
+
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+
+            <button type="submit" class="btn-primary">Cadastrar</button>
+        </form>
+
+        <p>Já possui conta? <a href="{% url 'loginUsuario' %}">Entrar</a></p>
+    </div>
+</section>
+{% endblock %}

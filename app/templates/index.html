@@ -1,0 +1,59 @@
+{% extends "template.html" %}
+{% load static %}
+
+{% block title %}Home - Marketplace{% endblock %}
+
+{% block content %}
+
+<section class="hero" id="home">
+    <h1>{{ pagina.texto_chamada }}</h1>
+    <a href="{% url 'salvarUsuario' %}" class="btn-primary">Cadastre-se</a>
+</section>
+
+<section class="sobre">
+    <div class="sobre-texto">
+        <h2 id = "sobre">Sobre Nós</h2>
+        <p>{{ pagina.texto_sobre }}</p>
+    </div>
+
+    <div class="sobre-img">
+        <img src="{{ pagina.imagem_sobre.url }}" alt="Sobre nós">
+    </div>
+</section>
+
+<section class="produtos">
+    <h2 id = "produtos">Nossos Produtos</h2>
+
+    <div class="produtos-container">
+
+        {% for produto in produtos %}
+        <div class="card-produto">
+            <img src="{{ produto.foto.url }}" alt="{{ produto.nome }}">
+            <h3>{{ produto.nome }}</h3>
+            <p>{{ produto.descricao|truncatechars:70 }}</p>
+            <span class="preco">R$ {{ produto.preco }}</span>
+
+            <a href="{% url 'comprar' produto.id %}" class="btn-comprar">Comprar</a>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+
+<section class="contato">
+    <h2 id = "contato">Contato</h2>
+
+    <p><strong>Endereço:</strong> {{ pagina.endereco }}</p>
+    <p><strong>Email:</strong> {{ pagina.email }}</p>
+    <p><strong>WhatsApp:</strong> {{ pagina.whatsapp }}</p>
+
+    <form method="POST" action="{% url 'salvarContato' %}" class="form-card">
+        {% csrf_token %}
+        <input type="text" name="nome" placeholder="Seu nome" required>
+        <input type="email" name="email" placeholder="Seu email" required>
+        <textarea name="mensagem" placeholder="Mensagem" required></textarea>
+        <button type="submit" class="btn-primary">Enviar</button>
+    </form>
+</section>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "template.html" %}
+
+{% block title %}Meu Perfil{% endblock %}
+
+{% block content %}
+
+<h2>Olá, {{ usuario.username }} 👋</h2>
+<p>Veja abaixo seus pedidos:</p>
+
+{% if pedidos %}
+    <div class="lista-pedidos">
+
+        {% for pedido in pedidos %}
+        <div class="card-pedido">
+            <h3>{{ pedido.produto.nome }}</h3>
+            <p>Quantidade: {{ pedido.quantidade }}</p>
+            <p>Total: R$ {{ pedido.total }}</p>
+            <p>Data: {{ pedido.data|date:"d/m/Y H:i" }}</p>
+        </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p>Você ainda não fez nenhuma compra.</p>
+{% endif %}
+
+{% endblock %}
